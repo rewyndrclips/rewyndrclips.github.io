@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rewyndr clips</title>
+<link rel="icon" href="logo.png">
+<style>
+  :root { --bg: #f6f6fb; --card: #fff; --ink: #1b1b2f; --muted: #5d5d75; --brand: #4547b0; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #12121c; --card: #1c1c2a; --ink: #ececf4; --muted: #a3a3b8; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); }
+  main { max-width: 640px; margin: 0 auto; padding: 48px 16px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+  header img { width: 64px; height: 64px; border-radius: 14px; }
+  h1 { margin: 0; font-size: 28px; }
+  .card { background: var(--card); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+  .muted { color: var(--muted); }
+  a { color: var(--brand); }
+  code { display: block; word-break: break-all; padding: 12px; border-radius: 8px; background: var(--bg); font-size: 14px; }
+  button { margin-top: 12px; padding: 10px 18px; border: 0; border-radius: 8px; background: var(--brand); color: #fff; font-size: 15px; cursor: pointer; }
+  #login { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="logo.png" alt="">
+    <div><h1>rewyndr clips</h1><div class="muted">Daily stream highlights</div></div>
+  </header>
+
+  <div class="card" id="login">
+    <strong>✅ TikTok login finished</strong>
+    <p class="muted">Copy this whole address and paste it into the clipper window that asked for it.</p>
+    <code id="url"></code>
+    <button id="copy">Copy address</button>
+  </div>
+
+  <div class="card">
+    <p>rewyndr clips posts short highlights from live streams, always credited to the streamer.</p>
+    <p>Follow on <a href="https://www.instagram.com/rewyndr.clips/">Instagram</a>, TikTok and YouTube.</p>
+  </div>
+
+  <p class="muted"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></p>
+</main>
+<script>
+  // After TikTok login, this page is opened with ?code=... — show it so it can be copied.
+  if (new URLSearchParams(location.search).has("code")) {
+    document.getElementById("login").style.display = "block";
+    document.getElementById("url").textContent = location.href;
+    document.getElementById("copy").onclick = async () => {
+      try { await navigator.clipboard.writeText(location.href); document.getElementById("copy").textContent = "Copied ✓"; }
+      catch (e) { document.getElementById("copy").textContent = "Select the text above and copy it"; }
+    };
+  }
+</script>
+</body>
+</html>
